@@ -11,13 +11,12 @@ const PORT = 3000;
 const app = express();
 app.use(express.json()); // Para analisar corpos de requisição em formato JSON
 
-const databaseName = process.env.DB_DATABASE || 'SistemaPonto';
+const databaseName = process.env.DB_DATABASE;
 
 const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: databaseName,
   multipleStatements:true
 };
 //asserção de caminho para arquivo sql

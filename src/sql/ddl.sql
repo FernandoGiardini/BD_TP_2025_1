@@ -151,5 +151,5 @@ CREATE TABLE IF NOT EXISTS Calendario (
     dia TINYINT NOT NULL COMMENT 'O dia do mês da data (1-31)',
     dia_da_semana TINYINT NOT NULL COMMENT 'O dia da semana (1=Domingo, 7=Sábado)',
     is_fim_de_semana TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Flag: 1 se for fim de semana, 0 caso contrário',
-    is_feriado TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Flag: 1 se for feriado, 0 caso contrário',
+    is_feriado TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Flag: 1 se for feriado, 0 caso contrário'
 );
