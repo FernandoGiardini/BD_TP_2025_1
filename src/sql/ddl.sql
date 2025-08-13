@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS EscalaTrabalho (
     FOREIGN KEY (id_administrador) REFERENCES Administrador(id_administrador)
 );
 
-CREATE TABLE IF NOT EXISTS calendario (
+CREATE TABLE IF NOT EXISTS Calendario (
     data_completa DATE PRIMARY KEY COMMENT 'A data do calendário',
     ano SMALLINT NOT NULL COMMENT 'O ano da data',
     mes TINYINT NOT NULL COMMENT 'O mês da data (1-12)',

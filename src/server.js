@@ -17,7 +17,8 @@ const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: databaseName
+  database: databaseName,
+  multipleStatements:true
 };
 //asserção de caminho para arquivo sql
 const __filename = fileURLToPath(import.meta.url);
