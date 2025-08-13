@@ -1,32 +1,15 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { getConnection } from '../db.js';
+import { getConnection } from '../db.js';//CADASTRO
+import router from './home.js';
 
-const router = express.Router();
-
-//LOGIN
-router.get('/login', async (req,res) => {
-    try{
-        const conn = await getConnection();
-        const [result] = await conn.execute(`SHOW TABLES`)
-        console.log(result);
-        await conn.end();
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-    
-});
-
-//CADASTRO
 router.post('/register', async (req, res) => {
     
     if(req.body == undefined){
-        console.log("req vazia")
-        return -1;
+        return res.status(400).json({ error: 'Campos de registro são obrigatórios' });
     }
-    
-    const { nome, cpf, email, senha } = reqString;
+
+    const { nome, cpf, email, senha } = req.body;
 
     if (!nome || !cpf || !email || !senha) return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
 

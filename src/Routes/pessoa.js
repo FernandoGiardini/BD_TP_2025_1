@@ -9,7 +9,8 @@ router.get('/pessoas', async (req,res) => {
     const [result] = await conn.execute(`SELECT * FROM Pessoa`)
 
     await conn.end();
-    res.json(result[0]);
+    
+    res.json(result);
 });
 
 export default router;
