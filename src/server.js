@@ -15,6 +15,7 @@ app.use(homeRoute);
 app.use(pessoaRoute);
 app.use(adminRoute);
 app.use(loginRoute);
+app.use(cadastroRoute);
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);

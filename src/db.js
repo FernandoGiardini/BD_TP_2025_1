@@ -81,7 +81,7 @@ async function createDatabase() {
             console.log("Logue no app e cadastre outros funcionários usando o superusuário: email: super@super.com senha: 123321")
         }
 
-        await connection.end();
+        //await connection.end()
 
     } catch (error) {
         console.error('Erro ao conectar ou criar o banco de dados:', error.message);

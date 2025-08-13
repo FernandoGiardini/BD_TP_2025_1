@@ -8,9 +8,10 @@ router.get('/', async (req,res) => {
 
     const [result] = await conn.execute(`SHOW TABLES`)
 
-    await conn.end();
+
     
     res.json(result);
+    await conn.end();
 });
 
 export default router;

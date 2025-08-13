@@ -1,8 +1,8 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import { getConnection } from '../db.js';//CADASTRO
-import router from './home.js';
+import { getConnection } from '../db.js';
 
+const router = express.Router();
 router.post('/register', async (req, res) => {
     
     if(req.body == undefined){
