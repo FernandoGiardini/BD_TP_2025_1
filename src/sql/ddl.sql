@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS EscalaTrabalho (
 );
 
 CREATE TABLE IF NOT EXISTS calendario (
-    data_completa DATE NOT NULL PRIMARY KEY COMMENT 'A data do calendário',
+    data_completa DATE PRIMARY KEY COMMENT 'A data do calendário',
     ano SMALLINT NOT NULL COMMENT 'O ano da data',
     mes TINYINT NOT NULL COMMENT 'O mês da data (1-12)',
     dia TINYINT NOT NULL COMMENT 'O dia do mês da data (1-31)',
