@@ -1,7 +1,11 @@
-//Configurações e imports.
-require('dotenv').config();
-const express = require('express');
-const mysql = require('mysql2/promise'); 
+//Configurações / imports.
+import 'dotenv/config';
+import fs from 'fs';
+import fsp from 'fs/promises' ;
+import path from 'path';
+import { fileURLToPath } from 'url';
+import express from 'express';
+import mysql from 'mysql2/promise';
 
 const PORT = 3000;
 const app = express();
@@ -15,6 +19,34 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
   database: databaseName
 };
+//asserção de caminho para arquivo sql
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function getFilePath(fileName, folder='sql'){
+  const filePath = path.resolve(__dirname,folder,fileName);
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Arquivo SQL não encontrado: ${filePath}`);
+  }
+
+  return filePath;
+}
+
+const caminho = getFilePath("ddl.sql");
+
+async function runSqlFile(connection, filePath) {
+  try {
+    const sql = await fsp.readFile(filePath, 'utf-8');
+
+    // 3. Executa o conteúdo do arquivo (que pode conter múltiplos comandos)
+    await connection.query(sql);
+    
+    console.log(`Arquivo SQL '${filePath}' executado com sucesso.`);
+  } catch (error) {
+    console.error(`Erro ao executar o arquivo SQL '${filePath}':`, error);
+  }
+}
 
 //Criação da base de dados local.
 async function createDatabase() {
@@ -22,9 +54,9 @@ async function createDatabase() {
   try {
     connection = await mysql.createConnection(dbConfig);
     console.log('Conexão bem-sucedida ao servidor MySQL.');
+    
 
-    await connection.execute(`CREATE DATABASE IF NOT EXISTS ${databaseName}`);
-    console.log(`Banco de dados '${databaseName}' criado ou já existente.`);
+    await runSqlFile(connection,caminho);
 
     await connection.end();
   } catch (error) {
@@ -32,10 +64,11 @@ async function createDatabase() {
     if (connection) {
       await connection.end();
     }
-  }
+  } 
 }
 
 createDatabase();
+
 
 //Get pelo node>express se conectando a base de dados criada com mysql2.
 
