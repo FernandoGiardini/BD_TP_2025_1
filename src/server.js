@@ -1,3 +1,4 @@
+//Configurações e imports.
 require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2/promise'); 
@@ -15,19 +16,16 @@ const dbConfig = {
   database: databaseName
 };
 
-
+//Criação da base de dados local.
 async function createDatabase() {
   let connection;
   try {
-    // Conecta ao servidor MySQL
     connection = await mysql.createConnection(dbConfig);
     console.log('Conexão bem-sucedida ao servidor MySQL.');
 
-    // Executa o comando para criar o banco de dados
     await connection.execute(`CREATE DATABASE IF NOT EXISTS ${databaseName}`);
     console.log(`Banco de dados '${databaseName}' criado ou já existente.`);
 
-    // Fecha a conexão
     await connection.end();
   } catch (error) {
     console.error('Erro ao conectar ou criar o banco de dados:', error.message);
@@ -39,11 +37,12 @@ async function createDatabase() {
 
 createDatabase();
 
-// Configura uma rota para buscar dados
+//Get pelo node>express se conectando a base de dados criada com mysql2.
+
 app.get('/', async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
-    const [rows] = await connection.execute(`SHOW TABLES;`);
+    const [rows] = await connection.execute(`SHOW TABLES;`); //destructuring para pegar apenas o primeiro elemento do array (as linhas resposta da query) e ignorar os metadados. 
     connection.end();
     res.json(rows);
   } catch (error) {
