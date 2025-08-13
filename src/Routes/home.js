@@ -3,13 +3,13 @@ import { getConnection } from '../db.js';
 
 const router = express.Router();
 
-router.get('/home', async () => {
+router.get('/', async (req,res) => {
     const conn = await getConnection();
 
     const [result] = await conn.execute(`SHOW TABLES`)
-
-    console.log(result);
     await conn.end();
+    
+    res.json(result);
 });
 
 export default router;

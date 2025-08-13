@@ -6,7 +6,7 @@ import { getConnection } from '../db.js';
 const router = express.Router();
 
 //LOGIN
-router.get('/', async () => {
+router.get('/login', async (req,res) => {
     try{
         const conn = await getConnection();
         const [result] = await conn.execute(`SHOW TABLES`)
@@ -20,7 +20,13 @@ router.get('/', async () => {
 
 //CADASTRO
 router.post('/register', async (req, res) => {
-    const { nome,cpf, email, senha } = req.body;
+    
+    if(req.body == undefined){
+        console.log("req vazia")
+        return -1;
+    }
+    
+    const { nome, cpf, email, senha } = reqString;
 
     if (!nome || !cpf || !email || !senha) return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
 
